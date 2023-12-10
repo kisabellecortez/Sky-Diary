@@ -1,22 +1,184 @@
 body{
-  width: 100%; 
-  overflow: hidden; 
+  width: 100%;
+  background-color: #001F3F;
+  overflow: hidden;   
+  font-family: 'Open Sans', sans-serif;
 }
 
 .signIn{
-  overflow:hidden; 
-  display: absolute; 
-  width: 100%; 
   height: 100vh; 
+  width: 100%; 
   text-align:center; 
+}
+
+.signIn h1, p{
+  color: #D3D3D3;
 }
 
 .signIn h1{
   padding-top: 5vh; 
 }
 
+.signIn-card{
+  z-index: 1; 
+  background-color: rgb(0, 64, 128, 80%);
+  width: 30%;
+  height: 70%; 
+  margin: auto; 
+}
+
+.signIn-card h1{
+  margin-top: 5vh; 
+  padding-top: 5vh; 
+  color: #D3D3D3; 
+  opacity: 100%; 
+}
+
 .signIn-button{
   max-width: 240px; 
   margin: auto; 
-  padding: 10vh 4px 4px 4px; 
+  padding: 5vh 4px 4px 4px; 
 }
+
+.cloud {
+  width: 200px;
+  height: 100px;
+  background-color: #ffffff;
+  border-radius: 100px; /* Half of the width for a full circle */
+  position: absolute;
+  z-index: -1; /* Cloud is behind the other div */
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  width: 100px;
+  height: 100px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+}
+
+.cloud::before {
+  left: 50px;
+}
+
+.cloud::after {
+  left: 100px;
+}
+
+.cloud1 {
+  left: 10%;
+  width: 250px;
+  height: 120px;
+  border-radius: 120px;
+  animation: moveCloud1 10s linear infinite; /* Adjust the duration as needed */
+}
+
+.cloud2 {
+  top: 35%;
+  left: 50%;
+  animation: moveCloud2 22s linear infinite; /* Adjust the duration as needed */
+}
+
+.cloud3 {
+  top: 60%;
+  left: 80%;
+  animation: moveCloud3 12s linear infinite; /* Adjust the duration as needed */
+}
+
+.cloud4 {
+  top: 95%;
+  left: 30%;
+  animation: moveCloud4 20s linear infinite; /* Adjust the duration as needed */
+}
+
+.cloud5 {
+  top: 70%;
+  left: 20%;
+  width: 250px;
+  height: 120px;
+  border-radius: 120px;
+  animation: moveCloud5 10s linear infinite; /* Adjust the duration as needed */
+}
+
+.cloud6 {
+  top: 15%;
+  left: 5%;
+  width: 250px;
+  height: 120px;
+  border-radius: 120px;
+  animation: moveCloud5 14s linear infinite; /* Adjust the duration as needed */
+}
+
+.cloud7 {
+  top: 30%;
+  left: 70%;
+  animation: moveCloud4 16s linear infinite; /* Adjust the duration as needed */
+}
+
+@keyframes moveCloud1 {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes moveCloud2 {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes moveCloud3 {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes moveCloud4 {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes moveCloud5 {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes moveCloud6 {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes moveCloud7 {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+
