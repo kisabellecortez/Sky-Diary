@@ -1,7 +1,19 @@
 import { GoogleButton } from 'react-google-button';
-import { AuthContextProvider } from '../context/AuthContext.js'
+import { UserAuth } from '../context/AuthContext.js'
 
-export default function SignIn(){
+const SignIn =()=>{
+  const { googleSignIn } = UserAuth(); 
+
+  const handleGoogleSignIn = async()=>{
+    try{
+      await googleSignIn(); 
+    }
+
+    catch (error){
+      console.log(error);
+    }
+  }
+
     return(
       <div className="signIn">
         <div className="cloud cloud1"></div>
@@ -16,9 +28,11 @@ export default function SignIn(){
         <div className="signIn-card">
         <h1>Sign In</h1>
         <div className="signIn-button">
-          <GoogleButton/>
+          <GoogleButton onClick={ handleGoogleSignIn }/>
         </div>
         </div>
       </div>
     );
-}
+};
+
+export default SignIn; 
