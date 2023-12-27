@@ -3,7 +3,6 @@ import {useState} from "react"
 import { UserAuth } from '../context/AuthContext.js'
 
 export default function SidebarItem({item}){
-    const [open, setOpen] = useState(false)
     const { user, logOut } = UserAuth(); 
 
     const handleSignOut = async()=>{
