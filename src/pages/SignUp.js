@@ -1,14 +1,20 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebase.js'
 
 const SignUp =()=>{
+    const navigate = useNavigate(); 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleSignUp = async=()=>{
+    const handleSignUp = async()=>{
         try{
-
+            await createUserWithEmailAndPassword(auth, email, password).then((userCredential)=>{
+                const user = userCredential.user; 
+                console.log(user)
+                navigate('/home')
+            })
         }
         catch(error){
             console.log(error)
