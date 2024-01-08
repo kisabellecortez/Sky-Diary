@@ -9,6 +9,10 @@
         "path": "/reminisce"
     },
     {
+        "title": "SETTINGS", 
+        "path": "/settings"
+    }, 
+    {
         "title": "LOGOUT", 
         "path": "/signin"
     }

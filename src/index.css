@@ -334,4 +334,47 @@ body{
 
 }
 
+.home{
+  display: inline-block; 
+}
+
+.home h1{
+  color: #D3D3D3; 
+  font-size: 25px;
+  font-family: Impact, fantasy; 
+  letter-spacing: 1px; 
+  white-space: nowrap;
+  justify-content: space-between;
+  margin-left: 5vh; 
+}
+
+.calendar{
+  float: left; 
+  width: 50vh; 
+  height: 50vh; 
+  background-color: grey; 
+  margin: 20px 0 0 80px; 
+  border-radius: 20px; 
+  
+}
+
+.logBox{
+  float: right; 
+  width: 110vh; 
+  height: 70vh; 
+  background-color: grey; 
+  margin: 20px 0 0 60px;
+  border-radius: 20px; 
+}
+
+.logBox textarea{
+  width: 100vh;  
+  height: 50vh; 
+  margin: 0 5vh 0 5vh;
+}
+
+.logBox button{
+  margin: 2vh 0 0 5vh; 
+}
+
 

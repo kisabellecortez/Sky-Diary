@@ -10,7 +10,7 @@ const auth = getAuth();
 const SignIn =()=>{
   const { googleSignIn } = UserAuth(); 
   const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
   const handleGoogleSignIn = async()=>{
@@ -39,7 +39,7 @@ const SignIn =()=>{
           alert("Email or password is incorrect.")
         )
     }
-}
+  }
 
     return(
       <div className="signIn">
@@ -83,6 +83,7 @@ const SignIn =()=>{
               </div>
               <button type="submit"  onClick={ handleSignIn }>Sign Up</button>
             </div>
+
           </div> 
           <p>Don't have an account? Sign up <a href="/signup">here.</a></p>
         </div>
