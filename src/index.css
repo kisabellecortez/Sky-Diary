@@ -362,7 +362,7 @@ body{
   float: right; 
   width: 110vh; 
   height: 70vh; 
-  background-color: grey; 
+  background-color: #fff; 
   margin: 20px 0 0 60px;
   border-radius: 20px; 
 }
@@ -371,10 +371,53 @@ body{
   width: 100vh;  
   height: 50vh; 
   margin: 0 5vh 0 5vh;
+  border-color: #D3D3D3;
+  border-radius: 5px;  
 }
 
 .logBox button{
   margin: 2vh 0 0 5vh; 
 }
 
+.calendar-div{
+  display: inline-block; 
+  height: auto; 
+  width: auto; 
+  margin: 20px 0 0 80px; 
+}
+
+.calendar-div h2{
+  text-align: center; 
+  color: #D3D3D3; 
+}
+
+table {
+  float: left; 
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #001F3F;
+  width: 40px; 
+  height: 40px; 
+  padding: 5px;
+  text-align: center;
+  font-size: 14px; 
+  color: #D3D3D3; 
+}
+
+th {
+  background-color: #001F3F;
+}
+
+td {
+  cursor: pointer;
+}
+
+td.today {
+  background-color: #4CAF50;
+  border-radius: 100%;  
+  color: #001F3F;
+  padding: 1px; 
+}
 
