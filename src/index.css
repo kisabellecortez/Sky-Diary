@@ -421,3 +421,28 @@ td.today {
   padding: 1px; 
 }
 
+.settings{
+  
+  display: inline-block;
+}
+
+.settings h1, button{
+  margin-left: 80px; 
+}
+
+.settings h1{
+  margin-top: 20px;
+  color: #D3D3D3;
+}
+
+.settings button{
+  display: inline-block;
+  width: auto; 
+  height: 25px; 
+  margin-right: 100vh;
+  margin-top: 5vh; 
+}
+
+.settings .form{
+  margin-left: 80px; 
+}

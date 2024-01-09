@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase.js'
+import { UserAuth } from '../context/AuthContext.js'
 
 export var startYear; 
 export var startMonth; 
@@ -12,27 +13,14 @@ const SignUp =()=>{
     const navigate = useNavigate(); 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const { signUp } = UserAuth()
 
     const handleSignUp = async()=>{
         try{
-            await createUserWithEmailAndPassword(auth, email, password).then((userCredential)=>{
-                const startDate = new Date(); 
-                startYear = startDate.getFullYear(); 
-                console.log(startYear)
-
-                startMonth = startDate.getMonth(); 
-                console.log(startMonth)
-
-                startDay = startDate.getDay(); 
-                console.log(startDay)
-
-                startWeekday = startDate.getDay(); 
-                console.log(startWeekday)
-
-                const user = userCredential.user; 
-                console.log(user)
+            await signUp(email, password)
+                
                 navigate('/home')
-            })
+       
         }
         catch(error){
             console.log(error)

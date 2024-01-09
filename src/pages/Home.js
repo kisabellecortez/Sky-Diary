@@ -1,14 +1,14 @@
 import Sidebar from '../nav/Sidebar.js'
-
+import { auth } from '../firebase.js'
 import React, { useState, useEffect } from 'react';
-
+import {useNavigate} from 'react-router-dom'
 import { doc, addDoc, collection, updateDoc, deleteDoc, getDoc } from 'firebase/firestore'
+import { UserAuth } from '../context/AuthContext.js'
 
 
 export default function SignIn(){
     const[log, setLog] = useState('')
-    
-    
+    const navigate = useNavigate()
     const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {

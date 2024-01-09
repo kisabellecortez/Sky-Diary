@@ -1,19 +1,18 @@
 import { GoogleButton } from 'react-google-button';
 import React, { useState } from 'react';  
-import { UserAuth } from '../context/AuthContext.js'
+import { UserAuth} from '../context/AuthContext.js'
 import { useNavigate } from 'react-router-dom'
 import { collection, addDoc } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-
-const auth = getAuth(); 
 
 const SignIn =()=>{
   const { googleSignIn } = UserAuth(); 
+  const { signIn } = UserAuth(); 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const handleGoogleSignIn = async()=>{
+  const handleGoogleSignIn = async(e)=>{
+    e.preventDefault()
     try{
       await googleSignIn(); 
       navigate('/home')
@@ -24,13 +23,11 @@ const SignIn =()=>{
     }
   }
 
-  const handleSignIn = async()=>{
+  const handleSignIn = async(e)=>{
+    e.preventDefault()   
     try{
-        await signInWithEmailAndPassword(auth, email, password).then((userCredential)=>{
-            const user = userCredential.user; 
-            console.log(user)
-            navigate('/home')
-        })
+        await signIn(email, password)
+        navigate('/home')
     }
     catch(userCredential){
         console.log("Invalid email or password.")
