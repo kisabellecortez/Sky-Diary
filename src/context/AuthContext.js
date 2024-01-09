@@ -1,9 +1,8 @@
 import { useContext, createContext, useState, useEffect } from 'react'; 
-import { GoogleAuthProvider , createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser } from 'firebase/auth';
+import { updatePassword, GoogleAuthProvider , updateEmail, createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, sendEmailVerification } from 'firebase/auth';
 import { auth } from '../firebase.js' 
 
 const AuthContext = createContext()
-
 
 export const AuthContextProvider = ({ children })=> {
     const [user, setUser] = useState({});
@@ -26,11 +25,23 @@ export const AuthContextProvider = ({ children })=> {
     }
 
     const delUser =()=>{
-        deleteUser(user)
+        return deleteUser(user)
     }
 
     const createUser = (email, password) =>{
         return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const updEmail =(email)=>{
+        sendEmailVerification(user)
+
+        if(user.emailVerified){
+            updateEmail(user, email)
+        }
+    }
+
+    const updPassword =(password)=>{
+        return updatePassword(user, password)
     }
     
     useEffect(() => {
@@ -44,7 +55,7 @@ export const AuthContextProvider = ({ children })=> {
       }, []);
 
     return(
-        <AuthContext.Provider value = {{ googleSignIn, signIn, logOut, deleteUser, signUp, delUser, createUser, user }}>
+        <AuthContext.Provider value = {{ updPassword, googleSignIn, signIn, logOut, deleteUser, signUp, delUser, createUser, user, updEmail }}>
             { children }
         </AuthContext.Provider>
     );

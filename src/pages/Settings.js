@@ -1,32 +1,39 @@
 import Sidebar from '../nav/Sidebar.js'
-import { auth } from '../firebase.js'
+import {auth} from '../firebase.js'
 import { UserAuth } from '../context/AuthContext.js'
 import {useState} from 'react'
 import {useNavigate } from 'react-router-dom'
 
 export default function Settings(){ 
-  const {deleteUser} = UserAuth()
+  const {delUser, updPassword, updEmail} = UserAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-    const handleDelUser = async()=>{
-      try{
-        await deleteUser(auth)
-        navigate('/signin')
-      }
-      catch(error){
-
-      }
+  //delete current user
+  const handleDelUser = async()=>{
+    try{
+      await delUser()
+      navigate('/signin')
+      
+      return(
+        alert("Account was deleted successfully.")
+      )
     }
-
-    const handleUpdEmail = async()=>{
-
-    }
-
-    const handleUpdPass = async()=>{
+    catch(error){
 
     }
+  }
+
+  //change current users email
+  const handleUpdEmail = async()=>{
+    await updEmail(email)
+  }
+
+  //change current users password
+  const handleUpdPass = async()=>{
+    await updPassword(password)
+  }
     
     return(
         <div className="settings">
@@ -65,7 +72,7 @@ export default function Settings(){
                 </div>
             </div>
             
-            <button type="submit"  onClick={handleDelUser}>Delete Acccount</button>
+            <button onClick={handleDelUser}>Delete Acccount</button>
             
         </div>
     )

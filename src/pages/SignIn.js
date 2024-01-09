@@ -11,6 +11,7 @@ const SignIn =()=>{
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
+  //sign in users using Google pop up 
   const handleGoogleSignIn = async(e)=>{
     e.preventDefault()
     try{
@@ -23,8 +24,10 @@ const SignIn =()=>{
     }
   }
 
+  //sign in users using email and password
   const handleSignIn = async(e)=>{
     e.preventDefault()   
+ 
     try{
         await signIn(email, password)
         navigate('/home')
@@ -36,6 +39,7 @@ const SignIn =()=>{
           alert("Email or password is incorrect.")
         )
     }
+  
   }
 
     return(
@@ -78,10 +82,10 @@ const SignIn =()=>{
                   onChange={(e)=>setPassword(e.target.value)}
                   required></input>
               </div>
-              <button type="submit"  onClick={ handleSignIn }>Sign Up</button>
+              <button type="submit"  onClick={ handleSignIn }>Sign In</button>
             </div>
-
           </div> 
+          
           <p>Don't have an account? Sign up <a href="/signup">here.</a></p>
         </div>
       </div>
