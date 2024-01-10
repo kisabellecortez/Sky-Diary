@@ -1,7 +1,8 @@
 body{
   width: 100%;
   background-color: #001F3F;
-  overflow: hidden;   
+  overflow-y: auto;   
+  overflow-x: hidden; 
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -445,4 +446,23 @@ td.today {
 
 .settings .form{
   margin-left: 80px; 
+}
+
+.card-container{
+  text-align: center; 
+  margin-top: 40vh; 
+}
+
+.card{
+  margin-top: 5vh;
+  display: inline-block; 
+  width: 100px; 
+  height: 100px;
+  vertical-align: middle; 
+  margin-left: 50px;
+  background-color: black; 
+}
+
+.card p{
+  color: white; 
 }

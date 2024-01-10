@@ -1,7 +1,7 @@
 import { useContext, createContext, useState, useEffect } from 'react'; 
 import { updatePassword, GoogleAuthProvider , updateEmail, createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, sendEmailVerification } from 'firebase/auth';
 import { auth, db } from '../firebase.js' 
-import { collection, doc, addDoc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
 
@@ -39,9 +39,10 @@ export const AuthContextProvider = ({ children })=> {
         const day = date.getDay(); 
         const month = date.getMonth(); 
         const year = date.getFullYear(); 
+        const id = (day.toString() + month.toString() + year.toString())
 
         //add data to users database
-        setDoc(doc(db, user.uid, (day.toString() + month.toString() + year.toString())), {
+        setDoc(doc(db, user.uid, id), {
             string: entry
         })
     }

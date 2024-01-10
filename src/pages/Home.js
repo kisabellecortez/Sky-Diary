@@ -1,30 +1,59 @@
 import Sidebar from '../nav/Sidebar.js'
-import { auth } from '../firebase.js'
+import { db } from '../firebase.js'
 import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { doc, addDoc, collection, updateDoc, deleteDoc, getDoc } from 'firebase/firestore'
 import { UserAuth } from '../context/AuthContext.js'
-
+import {getDocs, collection } from 'firebase/firestore'
+import '../index.css'
 
 export default function SignIn(){
-    const[log, setLog] = useState('')
-    const navigate = useNavigate()
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const { addEntry } = UserAuth(); 
+  const[log, setLog] = useState('')
+  const navigate = useNavigate()
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const { addEntry } = UserAuth(); 
 
-    //add document to users database
-    const handleEntry = async()=>{
-      try{
-        await addEntry(log)
+  const [data, setData] = useState();
+  
+    const {user} = UserAuth()
 
-        return(
-          console.log("Entry was successfully added.")
-        )
-      }
-      catch(error){
-        console.log(error)
-      }
+   
+    
+  //add document to users database
+  const handleEntry = async()=>{
+    try{
+      await addEntry(log)
+      console.log("Entry successfully added.")
     }
+    catch(error){
+      console.log(error)
+    }
+  }
+
+  const [loading, setLoading] = useState(true);
+
+ 
+  const id = user?.uid; // Check if user is defined before accessing uid
+
+  const getData = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, id));
+      const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setData(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getData();
+    }
+  }, [id]);
+
+  useEffect(()=>{
+    getData()
+  }, [])
 
   useEffect(() => {
     createCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
@@ -109,6 +138,24 @@ export default function SignIn(){
                 </textarea>
                 <button type="submit" onClick={handleEntry}>POST</button>
             </div>
+            <div className="card-container">
+        {loading ? (
+          <div className="card">
+            <p>Loading...</p>
+          </div>
+        ) : data && data.length > 0 ? (
+          data.map((entry, i) => (
+            <div className="card" key={entry.id}>
+              <p>{entry.id}</p>
+              <p>{entry.string}</p>
+            </div>
+          ))
+        ) : (
+          <div className="card">
+            <p>No data</p>
+          </div>
+        )}
+      </div>
             
         </div>
     );
