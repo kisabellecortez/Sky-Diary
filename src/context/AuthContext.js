@@ -1,6 +1,7 @@
 import { useContext, createContext, useState, useEffect } from 'react'; 
 import { updatePassword, GoogleAuthProvider , updateEmail, createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, sendEmailVerification } from 'firebase/auth';
-import { auth } from '../firebase.js' 
+import { auth, db } from '../firebase.js' 
+import { collection, doc, addDoc, setDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
 
@@ -9,7 +10,7 @@ export const AuthContextProvider = ({ children })=> {
 
     const googleSignIn =()=> {
         const provider = new GoogleAuthProvider();
-        return signInWithPopup(auth, provider);
+        signInWithPopup(auth, provider);
     };
 
     function signUp(email, password){
@@ -29,7 +30,20 @@ export const AuthContextProvider = ({ children })=> {
     }
 
     const createUser = (email, password) =>{
-        return createUserWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    function addEntry(entry){
+        //get date to use as id 
+        const date = new Date();  
+        const day = date.getDay(); 
+        const month = date.getMonth(); 
+        const year = date.getFullYear(); 
+
+        //add data to users database
+        setDoc(doc(db, user.uid, (day.toString() + month.toString() + year.toString())), {
+            string: entry
+        })
     }
 
     const updEmail =(email)=>{
@@ -55,7 +69,7 @@ export const AuthContextProvider = ({ children })=> {
       }, []);
 
     return(
-        <AuthContext.Provider value = {{ updPassword, googleSignIn, signIn, logOut, deleteUser, signUp, delUser, createUser, user, updEmail }}>
+        <AuthContext.Provider value = {{ addEntry, updPassword, googleSignIn, signIn, logOut, deleteUser, signUp, delUser, createUser, user, updEmail }}>
             { children }
         </AuthContext.Provider>
     );

@@ -10,6 +10,21 @@ export default function SignIn(){
     const[log, setLog] = useState('')
     const navigate = useNavigate()
     const [currentDate, setCurrentDate] = useState(new Date());
+    const { addEntry } = UserAuth(); 
+
+    //add document to users database
+    const handleEntry = async()=>{
+      try{
+        await addEntry(log)
+
+        return(
+          console.log("Entry was successfully added.")
+        )
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
 
   useEffect(() => {
     createCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
@@ -92,7 +107,7 @@ export default function SignIn(){
                     required
                 >
                 </textarea>
-                <button type="submit">POST</button>
+                <button type="submit" onClick={handleEntry}>POST</button>
             </div>
             
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext.js'
+import { auth, db } from '../firebase.js' 
 
 const SignUp =()=>{
     const navigate = useNavigate(); 
