@@ -36,7 +36,7 @@ export const AuthContextProvider = ({ children })=> {
     function addEntry(entry){
         //get date to use as id 
         const date = new Date();  
-        const day = date.getDay(); 
+        const day = date.getDate(); 
         const month = date.getMonth(); 
         const year = date.getFullYear(); 
         const id = (day.toString() + month.toString() + year.toString())

@@ -30,11 +30,11 @@ function App(){
             }
           />
           <Route
-            path='/'reminisce
+            path='/reminisce'
             element={
               <ProtectedRoute>
               <Reminisce />
-                <Home />
+                <Reminisce />
               </ProtectedRoute>
             }
           />
