@@ -1,8 +1,7 @@
 import { useContext, createContext, useState, useEffect } from 'react'; 
-import { updatePassword, GoogleAuthProvider , updateEmail, createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, sendEmailVerification } from 'firebase/auth';
+import { GoogleAuthProvider , createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser } from 'firebase/auth';
 import { auth, db } from '../firebase.js' 
-import { doc, setDoc, getDoc } from 'firebase/firestore'
-import dayjs from 'dayjs';
+import { doc, setDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
 
@@ -51,18 +50,6 @@ export const AuthContextProvider = ({ children })=> {
             string: entry
         })
     }
-
-    const updEmail =(email)=>{
-        sendEmailVerification(user)
-
-        if(user.emailVerified){
-            updateEmail(user, email)
-        }
-    }
-
-    const updPassword =(password)=>{
-        return updatePassword(user, password)
-    }
     
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -75,7 +62,7 @@ export const AuthContextProvider = ({ children })=> {
       }, []);
 
     return(
-        <AuthContext.Provider value = {{ addEntry, updPassword, googleSignIn, signIn, logOut, deleteUser, delUser, createUser, user, updEmail }}>
+        <AuthContext.Provider value = {{ addEntry, googleSignIn, signIn, logOut, deleteUser, delUser, createUser, user }}>
             { children }
         </AuthContext.Provider>
     );

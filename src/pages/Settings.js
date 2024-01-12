@@ -1,13 +1,9 @@
 import Sidebar from '../nav/Sidebar.js'
-import {auth} from '../firebase.js'
 import { UserAuth } from '../context/AuthContext.js'
-import {useState} from 'react'
 import {useNavigate } from 'react-router-dom'
 
 export default function Settings(){ 
-  const {delUser, updPassword, updEmail} = UserAuth()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const {delUser} = UserAuth()
   const navigate = useNavigate()
 
   //delete current user
@@ -23,16 +19,6 @@ export default function Settings(){
     catch(error){
 
     }
-  }
-
-  //change current users email
-  const handleUpdEmail = async()=>{
-    await updEmail(email)
-  }
-
-  //change current users password
-  const handleUpdPass = async()=>{
-    await updPassword(password)
   }
     
     return(

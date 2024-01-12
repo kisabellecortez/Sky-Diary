@@ -1,9 +1,8 @@
 import Sidebar from '../nav/Sidebar.js'
 import { db } from '../firebase.js'
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext.js'
-import {doc, getDoc, getDocs, collection } from 'firebase/firestore'
+import { getDocs, collection } from 'firebase/firestore'
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -14,8 +13,6 @@ const today = dayjs();
 export default function SignIn(){
   const [log, setLog] = useState('');
   const [isEditMode, setEditMode] = useState(false); // State to track edit mode
-  const navigate = useNavigate();
-  const [currentDate, setCurrentDate] = useState(new Date());
   const { addEntry } = UserAuth();
   const [data, setData] = useState([]);
   const { user } = UserAuth();
@@ -59,8 +56,12 @@ export default function SignIn(){
     }
   };
 
+  useEffect(()=>{
+    getData()
+  })
+
   useEffect(() => {
-    getData();
+
   }, [user?.uid, isEditMode]);
   
     return(

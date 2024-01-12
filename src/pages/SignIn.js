@@ -2,7 +2,6 @@ import { GoogleButton } from 'react-google-button';
 import React, { useState } from 'react';  
 import { UserAuth} from '../context/AuthContext.js'
 import { useNavigate } from 'react-router-dom'
-import { collection, addDoc } from 'firebase/firestore';
 
 const SignIn =()=>{
   const { googleSignIn } = UserAuth(); 

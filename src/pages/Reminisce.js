@@ -1,5 +1,5 @@
 import Sidebar from '../nav/Sidebar.js';
-import React, { useEffect, useState, useRef, Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { UserAuth } from '../context/AuthContext.js'
 import dayjs from 'dayjs';
@@ -7,8 +7,7 @@ import Grid from '@mui/material/Grid';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { TimeClock } from '@mui/x-date-pickers/TimeClock';
-import {getDocs, doc, getDoc, collection } from 'firebase/firestore'
+import {getDocs, collection } from 'firebase/firestore'
 import { db } from '../firebase.js'
 
 const today = dayjs();
@@ -16,10 +15,6 @@ const d = new Date(2024, 0, 1)
 const begin = dayjs(d)
 
 export default function Reminisce() {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const initialYear = currentDate.getFullYear();
-  const initialMonth = currentDate.getMonth() + 1;
-  const calendarRef = useRef();
 
   const { user } = UserAuth();
 
@@ -30,10 +25,6 @@ export default function Reminisce() {
   const [documentExists, setDocumentExists] = useState(false);
 
   var documentId = (value.get('date')).toString() + (value.get('month')).toString() + (value.get('year'))
-
-  const date = new Date()
-
-
 
   useEffect(() => {
     const checkDocumentExists = async () => {

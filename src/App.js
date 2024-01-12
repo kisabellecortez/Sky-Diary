@@ -12,10 +12,6 @@ import Settings from './pages/Settings.js'
 import Reminisce from './pages/Reminisce.js'
 import ProtectedRoute from './components/ProtectedRoute';
 
-import React, { useEffect } from "react";
-import { auth } from "./firebase";
-
-
 function App({children}){
 
   return (
