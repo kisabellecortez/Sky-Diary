@@ -3,8 +3,13 @@ import { db } from '../firebase.js'
 import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext.js'
-import {getDocs, collection } from 'firebase/firestore'
-import '../index.css'
+import {doc, getDoc, getDocs, collection } from 'firebase/firestore'
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+
+const today = dayjs();
 
 export default function SignIn(){
   const [log, setLog] = useState('');
@@ -12,15 +17,15 @@ export default function SignIn(){
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
   const { addEntry } = UserAuth();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const { user } = UserAuth();
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth();
   const year = date.getFullYear();
   const currId = day.toString() + month.toString() + year.toString();
+  console.log(currId)
   const [editableContent, setEditableContent] = useState('');
-
 
   const handleEntry = async () => {
     try {
@@ -48,6 +53,7 @@ export default function SignIn(){
       const querySnapshot = await getDocs(collection(db, user?.uid));
       const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setData(data);
+      console.log(data)
     } catch (error) {
       console.log(error);
     }
@@ -56,75 +62,15 @@ export default function SignIn(){
   useEffect(() => {
     getData();
   }, [user?.uid, isEditMode]);
-
-  useEffect(() => {
-    createCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
-  }, [currentDate]);
-
-  const createCalendar = (year, month) => {
-    const table = document.getElementById("calendar");
-    const today = new Date().getDate();
-
-    // Clear existing content of the table
-    table.innerHTML = "";
-
-    const daysInMonth = new Date(year, month, 0).getDate();
-    const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
-    const weeksInMonth = Math.ceil((daysInMonth + firstDayOfMonth) / 7);
-
-    // Add weekdays row
-    const weekdaysRow = table.insertRow(0);
-    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    weekdays.forEach((weekday) => {
-      const th = document.createElement("th");
-      th.textContent = weekday;
-      weekdaysRow.appendChild(th);
-    });
-
-    let dayCounter = 1;
-
-    for (let i = 1; i <= weeksInMonth; i++) {
-      const row = table.insertRow(i);
-
-      for (let j = 0; j < 7; j++) {
-        const cell = row.insertCell(j);
-
-        if ((i === 1 && j < firstDayOfMonth) || dayCounter > daysInMonth) {
-          cell.innerHTML = "";
-        } else {
-          cell.innerHTML = dayCounter;
-
-          if (
-            year === currentDate.getFullYear() &&
-            month === currentDate.getMonth() + 1 &&
-            dayCounter === today
-          ) {
-            cell.classList.add("today");
-          }
-
-          dayCounter++;
-        }
-      }
-    }
-  };
-
-  const updateMonthYear = () => {
-    const monthYearElement = document.getElementById("monthYear");
-    const options = { month: "long", year: "numeric" };
-    monthYearElement.textContent = currentDate.toLocaleDateString("en-US", options);
-  };
-
-  useEffect(() => {
-    updateMonthYear();
-  }, [currentDate]);
   
     return(
   
       <div className="home">
         <Sidebar/>
-        <div className="calendar-div">
-            <h2 id="monthYear"></h2>
-            <table id="calendar"></table>
+        <div className = "calendar">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar defaultValue={today} minDate={today} maxDate={today} />
+          </LocalizationProvider>
         </div>
 
         <div className="logBox">
@@ -145,10 +91,10 @@ export default function SignIn(){
             </div>
           ) : data && data.some((entry) => entry.id === currId) ? (
             // If a document with the same ID exists, show a different button
-            <div className="display">
+            <div className="display" key={data.log}>
               <p>{data.find((entry) => entry.id === currId)?.string}</p>
               <button type="button" onClick={editData}>
-                EDIT
+                EDIT  
               </button>
             </div>
           ) : (

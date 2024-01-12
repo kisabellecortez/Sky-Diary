@@ -1,13 +1,13 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext.js'
-import { auth, db } from '../firebase.js' 
 
 const SignUp =()=>{
     const navigate = useNavigate(); 
 
-    const { signUp } = UserAuth()
+    const { createUser } = UserAuth()
 
+    //user information
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordC, setPasswordC] = useState('')
@@ -16,8 +16,9 @@ const SignUp =()=>{
     const handleSignUp = async()=>{
         try{
             if(password === passwordC){
-                await signUp(email, password)
+                await createUser(email, password)
                 navigate('/home')
+            
             }
             else{
                 return(
@@ -27,10 +28,9 @@ const SignUp =()=>{
        
         }
         catch(error){
-            console.log(error)
+            alert(error)
         }
-        
-        }
+    }
 
     return(
         <div className="signIn">
@@ -92,9 +92,7 @@ const SignUp =()=>{
                 <p>Already have an account? Sign In <a href="/signin">here.</a></p>
             </div>
         </div>
-      
     )
-
 }
 
 export default SignUp

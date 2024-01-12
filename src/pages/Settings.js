@@ -41,37 +41,6 @@ export default function Settings(){
 
             <h1>SETTINGS</h1>
             
-
-            <div className="form">
-              <div className="input">
-                <label for="name">Email: </label>
-                <input 
-                type="email" 
-                id="email" 
-                name="email"  
-                placeholder="johndoe@google.ca"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
-                required></input>
-                <button type="submit"  onClick={handleUpdEmail}>Change Email Adress</button>
-              </div>
-            </div>
-
-            <div className="form">
-              <div className="input">
-                <label for="name">Password: </label>
-                <input 
-                type="password" 
-                id="password" 
-                name="password"  
-                placeholder="password"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-                required></input>
-                <button type="submit"  onClick={handleUpdPass}>Change Password</button>              
-                </div>
-            </div>
-            
             <button onClick={handleDelUser}>Delete Acccount</button>
             
         </div>

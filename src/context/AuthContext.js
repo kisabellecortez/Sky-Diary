@@ -2,20 +2,18 @@ import { useContext, createContext, useState, useEffect } from 'react';
 import { updatePassword, GoogleAuthProvider , updateEmail, createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, sendEmailVerification } from 'firebase/auth';
 import { auth, db } from '../firebase.js' 
 import { doc, setDoc, getDoc } from 'firebase/firestore'
+import dayjs from 'dayjs';
 
 const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children })=> {
     const [user, setUser] = useState({});
+    var currDate = ''
 
     const googleSignIn =()=> {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider);
     };
-
-    function signUp(email, password){
-        return createUserWithEmailAndPassword(auth, email, password)
-    }
 
     const signIn = (email, password) =>  {
         return signInWithEmailAndPassword(auth, email, password)
@@ -29,8 +27,15 @@ export const AuthContextProvider = ({ children })=> {
         return deleteUser(user)
     }
 
-    const createUser = (email, password) =>{
-        createUserWithEmailAndPassword(auth, email, password)
+    const createUser = async(email, password) =>{
+        const date = new Date();  
+        const day = date.getDate(); 
+        const month = date.getMonth(); 
+        const year = date.getFullYear(); 
+        currDate = (day.toString() + month.toString() + year.toString())
+        console.log(currDate)
+        await createUserWithEmailAndPassword(auth, email, password)
+        
     }
 
     function addEntry(entry){
@@ -70,7 +75,7 @@ export const AuthContextProvider = ({ children })=> {
       }, []);
 
     return(
-        <AuthContext.Provider value = {{ addEntry, updPassword, googleSignIn, signIn, logOut, deleteUser, signUp, delUser, createUser, user, updEmail }}>
+        <AuthContext.Provider value = {{ addEntry, updPassword, googleSignIn, signIn, logOut, deleteUser, delUser, createUser, user, updEmail }}>
             { children }
         </AuthContext.Provider>
     );

@@ -2,6 +2,9 @@ import './App.css';
 import { AuthContextProvider } from './context/AuthContext.js'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 import Home from './pages/Home.js'
 import SignIn from './pages/SignIn.js'
 import SignUp from './pages/SignUp.js'
@@ -13,10 +16,14 @@ import React, { useEffect } from "react";
 import { auth } from "./firebase";
 
 
-function App(){
+function App({children}){
 
   return (
     <div>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      {children}
+    </LocalizationProvider>
+    
       <AuthContextProvider>
         <BrowserRouter>
           <Routes>
@@ -33,7 +40,6 @@ function App(){
             path='/reminisce'
             element={
               <ProtectedRoute>
-              <Reminisce />
                 <Reminisce />
               </ProtectedRoute>
             }
